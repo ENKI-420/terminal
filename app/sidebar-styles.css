@@ -1,0 +1,47 @@
+/* Additional sidebar styles to ensure proper rendering */
+.sidebar-wrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Ensure the sidebar has proper z-index and positioning */
+[data-sidebar="sidebar"] {
+  z-index: 40;
+  position: relative;
+}
+
+/* Fix for sidebar content scrolling */
+[data-sidebar="content"] {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Ensure proper styling for sidebar items */
+[data-sidebar="menu-button"] {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: hidden;
+}
+
+/* Fix for sidebar badge positioning */
+[data-sidebar="menu-badge"] {
+  position: absolute;
+  right: 1rem;
+}
+
+/* Ensure proper styling for sidebar group labels */
+[data-sidebar="group-label"] {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: hsl(var(--sidebar-foreground) / 0.7);
+}
+
+/* Fix for sidebar separator */
+[data-sidebar="separator"] {
+  margin: 0.5rem 1rem;
+  background-color: hsl(var(--sidebar-border));
+}
+

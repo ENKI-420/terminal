@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    /* Card colors */
+    --card: 217 33% 17%;
+    --card-foreground: 210 40% 98%;
+
+    /* Popover colors */
+    --popover: 217 33% 17%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary colors - Genomic Teal */
+    --primary: 173 59% 45%;
+    --primary-foreground: 222 47% 11%;
+
+    /* Secondary colors - Deep Navy */
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted colors */
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    /* Accent colors */
+    --accent: 173 59% 45%;
+    --accent-foreground: 222 47% 11%;
+
+    /* Destructive colors - Emergency Red */
+    --destructive: 346 100% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Border and input colors */
+    --border: 217 33% 25%;
+    --input: 217 33% 25%;
+    --ring: 173 59% 45%;
+
+    /* Radius */
+    --radius: 0.5rem;
+
+    /* Sidebar colors - These are essential for the sidebar component */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans font-semibold;
+  }
+
+  p,
+  span,
+  div {
+    @apply font-sans;
+  }
+
+  .dyslexia-mode * {
+    font-family: var(--font-dyslexic) !important;
+  }
+}
+
+/* Custom scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(46, 196, 182, 0.2);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(46, 196, 182, 0.4);
+}
+
+/* Glassmorphism effects */
+.glass-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(90deg, #2ec4b6, #47d3c3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* Glow effects */
+.glow {
+  box-shadow: 0 0 15px rgba(46, 196, 182, 0.5);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(46, 196, 182, 0.5);
+}
+
+/* Microinteractions */
+.processing-dot {
+  @apply bg-primary rounded-full h-3 w-3;
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Tooltip styles */
+.tooltip {
+  @apply absolute z-50 px-2 py-1 text-xs rounded bg-popover text-popover-foreground shadow-md;
+}
+
+/* Command palette */
+.command-palette {
+  @apply fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-background/80 backdrop-blur-sm;
+}
+
+.command-palette-content {
+  @apply w-full max-w-md bg-card rounded-lg shadow-lg border border-border overflow-hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .desktop-only {
+    @apply hidden;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    @apply hidden;
+  }
+}
+
