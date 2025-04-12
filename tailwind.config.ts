@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss"
 
-const config: Config = {
+const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -9,6 +9,7 @@ const config: Config = {
     "./src/**/*.{ts,tsx}",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
+  prefix: "",
   theme: {
     container: {
       center: true,
@@ -18,60 +19,23 @@ const config: Config = {
       },
     },
     extend: {
-      fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        body: ["var(--font-source-sans)", "system-ui", "sans-serif"],
-        dyslexic: ["var(--font-dyslexic)", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
-      },
       colors: {
-        // Primary colors - Deep Navy and Genomic Teal
-        navy: {
-          DEFAULT: "#0A1A2F",
-          50: "#F8FAFC",
-          100: "#E2E8F0",
-          200: "#CBD5E1",
-          300: "#94A3B8",
-          400: "#64748B",
-          500: "#475569",
-          600: "#334155",
-          700: "#1E293B",
-          800: "#0F172A",
-          900: "#0A1A2F",
-        },
-        teal: {
-          DEFAULT: "#2EC4B6",
-          50: "#EFFCFB",
-          100: "#C4F1ED",
-          200: "#9AE7DF",
-          300: "#71DDD1",
-          400: "#47D3C3",
-          500: "#2EC4B6",
-          600: "#239A8E",
-          700: "#197167",
-          800: "#0F473F",
-          900: "#051E1A",
-        },
-        // Emergency red for critical alerts
-        emergency: {
-          DEFAULT: "#FF3366",
-          50: "#FFF5F8",
-          100: "#FFE0E9",
-          200: "#FFC2D4",
-          300: "#FF94B0",
-          400: "#FF6688",
-          500: "#FF3366",
-          600: "#FF0044",
-          700: "#CC0035",
-          800: "#990028",
-          900: "#66001B",
-        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
+          50: "#e6f7ff",
+          100: "#bae7ff",
+          200: "#91d5ff",
+          300: "#69c0ff",
+          400: "#40a9ff",
+          500: "#1890ff",
+          600: "#096dd9",
+          700: "#0050b3",
+          800: "#003a8c",
+          900: "#002766",
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
@@ -88,6 +52,16 @@ const config: Config = {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
+          50: "#fff1f0",
+          100: "#ffccc7",
+          200: "#ffa39e",
+          300: "#ff7875",
+          400: "#ff4d4f",
+          500: "#f5222d",
+          600: "#cf1322",
+          700: "#a8071a",
+          800: "#820014",
+          900: "#5c0011",
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
@@ -99,13 +73,18 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          background: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          ring: "hsl(var(--sidebar-ring))",
+        neutral: {
+          50: "#fafafa",
+          100: "#f5f5f5",
+          200: "#e5e5e5",
+          300: "#d9d9d9",
+          400: "#bfbfbf",
+          500: "#8c8c8c",
+          600: "#595959",
+          700: "#434343",
+          800: "#262626",
+          900: "#141414",
+          950: "#0a0a0a",
         },
       },
       borderRadius: {
@@ -115,65 +94,41 @@ const config: Config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0" },
         },
-        pulse: {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.5" },
+        fadeIn: {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
         },
-        shimmer: {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        glow: {
-          "0%, 100%": { boxShadow: "0 0 5px rgba(46, 196, 182, 0.3)" },
-          "50%": { boxShadow: "0 0 20px rgba(46, 196, 182, 0.6)" },
+        slideInUp: {
+          from: {
+            transform: "translateY(20px)",
+            opacity: "0",
+          },
+          to: {
+            transform: "translateY(0)",
+            opacity: "1",
+          },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        shimmer: "shimmer 2s linear infinite",
-        float: "float 3s ease-in-out infinite",
-        glow: "glow 2s ease-in-out infinite",
+        "fade-in": "fadeIn 0.3s ease-in-out",
+        "slide-in": "slideInUp 0.3s ease-out",
       },
-      typography: {
-        DEFAULT: {
-          css: {
-            maxWidth: "100%",
-            color: "hsl(var(--foreground))",
-            a: {
-              color: "hsl(var(--primary))",
-              "&:hover": {
-                color: "hsl(var(--primary))",
-              },
-            },
-            strong: {
-              color: "hsl(var(--foreground))",
-            },
-            code: {
-              color: "hsl(var(--primary))",
-              backgroundColor: "hsl(var(--muted))",
-              borderRadius: "0.25rem",
-              padding: "0.15rem 0.3rem",
-            },
-          },
-        },
+      fontFamily: {
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        mono: ["Hack", "Fira Code", "monospace"],
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-}
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config
 
 export default config
-
