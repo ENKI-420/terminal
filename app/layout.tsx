@@ -10,6 +10,23 @@ const inter = Inter({
   variable: "--font-inter",
 })
 
+export const metadata = {
+  title: "AIDEN - Adaptive Integrated Defense and Execution Node",
+  description: "Advanced cybersecurity and defense system",
+  viewport: "width=device-width, initial-scale=1",
+  // Add proper meta tags for content loading
+  metadataBase: new URL("https://your-domain.vercel.app"),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://your-domain.vercel.app",
+    title: "AIDEN - Adaptive Integrated Defense and Execution Node",
+    description: "Advanced cybersecurity and defense system",
+    siteName: "AIDEN Terminal",
+  },
+    generator: 'v0.dev'
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,6 +38,9 @@ export default function RootLayout({
         <title>AIDEN - Adaptive Integrated Defense and Execution Node</title>
         <meta name="description" content="Advanced cybersecurity and defense system" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css" />
+        {/* Add preconnect for vusercontent.net */}
+        <link rel="preconnect" href="https://lite.vusercontent.net" />
+        <link rel="dns-prefetch" href="https://lite.vusercontent.net" />
       </head>
       <body className="min-h-screen bg-neutral-950 antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
@@ -37,7 +57,3 @@ export default function RootLayout({
 
 
 import './globals.css'
-
-export const metadata = {
-      generator: 'v0.dev'
-    };

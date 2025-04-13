@@ -19,4 +19,21 @@ const TooltipContent = React.forwardRef<
 ))
 TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-export { TooltipRoot, TooltipTrigger, TooltipContent, TooltipProvider }
+// Create a composite Tooltip component for easier use
+interface TooltipProps {
+  children: React.ReactNode
+  content: React.ReactNode
+  className?: string
+  contentClassName?: string
+}
+
+const Tooltip = ({ children, content, className, contentClassName }: TooltipProps) => (
+  <TooltipRoot>
+    <TooltipTrigger asChild className={className}>
+      {children}
+    </TooltipTrigger>
+    <TooltipContent className={contentClassName}>{content}</TooltipContent>
+  </TooltipRoot>
+)
+
+export { TooltipRoot, TooltipTrigger, TooltipContent, TooltipProvider, Tooltip }

@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./terminal-styles.css";
+@import "./logo-styles.css";
 
 @layer base {
   :root {
@@ -75,6 +77,34 @@
     background-color: #0a0a0a;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23333333' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
   }
+}
+
+/* Prevent content jumping during page load */
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Prevent layout shifts by setting explicit content-visibility */
+.content-visibility-auto {
+  content-visibility: auto;
+}
+
+/* Prevent FOUC (Flash of Unstyled Content) */
+.no-fouc {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.no-fouc.loaded {
+  opacity: 1;
+}
+
+/* Prevent text selection flickering */
+::selection {
+  background-color: rgba(24, 144, 255, 0.3);
+  color: white;
 }
 
 /* Modern scrollbar styling */

@@ -1,0 +1,190 @@
+/* Terminal-specific styles for stability */
+.terminal-window {
+  background-color: rgba(0, 10, 20, 0.9);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(24, 144, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0); /* Force GPU acceleration */
+  backface-visibility: hidden; /* Prevent flickering during animations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.terminal-header {
+  background: linear-gradient(to right, rgba(0, 10, 20, 0.9), rgba(0, 20, 40, 0.9));
+  border-bottom: 1px solid rgba(24, 144, 255, 0.3);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.terminal-body {
+  background-color: rgba(0, 10, 20, 0.9);
+  font-family: "Hack", "Fira Code", monospace;
+  line-height: 1.5;
+  position: relative;
+}
+
+.terminal-input {
+  background-color: transparent;
+  border: none;
+  color: #e1e1e1;
+  font-family: "Hack", "Fira Code", monospace;
+  width: 100%;
+  outline: none;
+  caret-color: #1890ff;
+  padding: 0;
+  margin: 0;
+}
+
+.terminal-prompt {
+  color: #1890ff;
+  font-weight: bold;
+  margin-right: 8px;
+  user-select: none;
+}
+
+.terminal-command {
+  color: #e1e1e1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 2px 0;
+}
+
+.terminal-output {
+  color: #a0a0a0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 2px 0;
+}
+
+.terminal-error {
+  color: #ff4d4f;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 2px 0;
+}
+
+.terminal-success {
+  color: #52c41a;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 2px 0;
+}
+
+.terminal-warning {
+  color: #faad14;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 2px 0;
+}
+
+.terminal-info {
+  color: #1890ff;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 2px 0;
+}
+
+/* Custom scrollbar for better UX */
+.terminal-body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  background: rgba(24, 144, 255, 0.5);
+  border-radius: 4px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(24, 144, 255, 0.7);
+}
+
+/* Prevent text selection flickering */
+.terminal-body::selection,
+.terminal-input::selection,
+.terminal-command::selection,
+.terminal-output::selection {
+  background-color: rgba(24, 144, 255, 0.3);
+  color: white;
+}
+
+/* Stable background for terminal */
+.bg-terminal-bg {
+  background-color: rgba(0, 10, 20, 0.9);
+}
+
+/* Smooth transitions for all elements */
+.terminal-window *,
+.terminal-window *::before,
+.terminal-window *::after {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Prevent layout shifts with fixed dimensions */
+.terminal-window.fixed-height {
+  height: 80vh;
+}
+
+/* Prevent content jumping during loading */
+.terminal-body.loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 10, 20, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+/* Ensure smooth animations */
+@media (prefers-reduced-motion: no-preference) {
+  .terminal-window {
+    transition-duration: 0.3s;
+  }
+
+  .terminal-command,
+  .terminal-output,
+  .terminal-error,
+  .terminal-success,
+  .terminal-warning,
+  .terminal-info {
+    animation: fadeIn 0.2s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .terminal-window,
+  .terminal-window *,
+  .terminal-window *::before,
+  .terminal-window *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
