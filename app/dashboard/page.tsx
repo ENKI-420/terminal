@@ -1,47 +1,82 @@
-import { notFound } from "next/navigation"
+import type { Metadata } from "next"
+import { DashboardShell } from "@/components/dashboard/dashboard-shell"
+import { DashboardHeader } from "@/components/dashboard/dashboard-header"
+import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Settings, Plus } from "lucide-react"
+import { HealthSummary } from "@/components/dashboard/health-summary"
+import { UpcomingAppointmentsWidget } from "@/components/dashboard/upcoming-appointments-widget"
+import { RecentLabResultsWidget } from "@/components/dashboard/recent-lab-results-widget"
+import { MedicationTrackerWidget } from "@/components/dashboard/medication-tracker-widget"
+import { HealthMetricsWidget } from "@/components/dashboard/health-metrics-widget"
+import { TreatmentPlanWidget } from "@/components/dashboard/treatment-plan-widget"
+import { NotificationsWidget } from "@/components/dashboard/notifications-widget"
+import { ResourcesWidget } from "@/components/dashboard/resources-widget"
 
-async function fetchDashboardData() {
-  try {
-    // Simulate a fetch request
-    const response = await fetch("https://api.example.com/dashboard", {
-      // Add cache: 'no-store' if you want fresh data every request
-      // Or use { next: { revalidate: 60 } } to revalidate every 60 seconds
-      next: { revalidate: 60 },
-    })
-
-    if (!response.ok) {
-      // Handle HTTP errors
-      throw new Error(`API error: ${response.status}`)
-    }
-
-    return await response.json()
-  } catch (error) {
-    // Log the error
-    console.error("Failed to fetch dashboard data:", error)
-
-    // Re-throw the error to be caught by the error boundary
-    throw new Error("Failed to load dashboard data. Please try again later.")
-  }
+export const metadata: Metadata = {
+  title: "Dashboard | GenomicInsights",
+  description: "Your personalized genomic insights dashboard",
 }
 
-export default async function DashboardPage() {
-  try {
-    const data = await fetchDashboardData()
+export default function DashboardPage() {
+  return (
+    <DashboardShell>
+      <DashboardHeader
+        heading="Welcome, John"
+        text="Here's an overview of your health information and upcoming activities."
+      >
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" className="h-8 gap-1">
+            <Plus className="h-3.5 w-3.5" />
+            Add Widget
+          </Button>
+          <Button variant="outline" size="sm" className="h-8 gap-1">
+            <Settings className="h-3.5 w-3.5" />
+            Customize
+          </Button>
+        </div>
+      </DashboardHeader>
 
-    // If data is not found or invalid, show 404 page
-    if (!data || !data.items) {
-      notFound()
-    }
+      <Tabs defaultValue="overview" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="health">Health</TabsTrigger>
+          <TabsTrigger value="appointments">Appointments</TabsTrigger>
+          <TabsTrigger value="medications">Medications</TabsTrigger>
+        </TabsList>
 
-    return (
-      <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-        {/* Render your dashboard content here */}
-        <pre className="bg-muted p-4 rounded">{JSON.stringify(data, null, 2)}</pre>
-      </div>
-    )
-  } catch (error) {
-    // This error will be caught by the error.tsx boundary
-    throw error
-  }
+        <TabsContent value="overview" className="space-y-4">
+          <HealthSummary />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <UpcomingAppointmentsWidget />
+            <RecentLabResultsWidget />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <MedicationTrackerWidget />
+            <NotificationsWidget />
+            <ResourcesWidget />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="health" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <HealthMetricsWidget />
+            <TreatmentPlanWidget />
+          </div>
+
+          <RecentLabResultsWidget fullWidth />
+        </TabsContent>
+
+        <TabsContent value="appointments" className="space-y-4">
+          <UpcomingAppointmentsWidget fullWidth />
+        </TabsContent>
+
+        <TabsContent value="medications" className="space-y-4">
+          <MedicationTrackerWidget fullWidth />
+        </TabsContent>
+      </Tabs>
+    </DashboardShell>
+  )
 }
