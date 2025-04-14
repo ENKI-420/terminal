@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx" // Or "react" if using older versions of React
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "target": "ES6",
